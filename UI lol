@@ -1820,13 +1820,16 @@ function library:CreateWindow(name, size, hidebutton)
                         slider.Gradient2.Color = ColorSequence.new({ ColorSequenceKeypoint.new(0.00, theme.accentcolor), ColorSequenceKeypoint.new(1.00, theme.accentcolor2) })
                     end)
     
-                    slider.BlackOutline2.MouseEnter:Connect(function()
-                        slider.BlackOutline2.BackgroundColor3 = window.theme.accentcolor
-                    end)
-                    slider.BlackOutline2.MouseLeave:Connect(function()
-                        slider.BlackOutline2.BackgroundColor3 = window.theme.outlinecolor2
-                    end)
-    
+                    slider.BlackOutline2.InputBegan:Connect(function(input)
+    					if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+        					slider.BlackOutline2.BackgroundColor3 = window.theme.accentcolor
+    					end
+					end)
+                    slider.BlackOutline2.InputEnded:Connect(function(input)
+    					if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+        					slider.BlackOutline2.BackgroundColor3 = window.theme.outlinecolor2
+    					end
+					end)
                     if slider.flag and slider.flag ~= "" then
                         library.flags[slider.flag] = slider.default or slider.min or 0
                     end
